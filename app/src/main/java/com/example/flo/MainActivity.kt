@@ -1,5 +1,6 @@
 package com.example.flo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.flo.databinding.ActivityMainBinding
@@ -12,6 +13,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        //binding을 사용해서 id값 가져오기
+        //mainPlayerCl눌렀을때 SongActivity로 이동
+        binding.mainPlayerCl.setOnClickListener {
+            startActivity(Intent(this, SongActivity::class.java))
+        }
 
         initBottomNavigation()
 
