@@ -18,6 +18,10 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        //homeAlbumImgIv1를 눌렀을때 AlbumFragment로 이동
+        binding.homeAlbumImgIv1.setOnClickListener {
+            (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,AlbumFragment()).commitAllowingStateLoss()
+        }
         return binding.root
     }
 }
