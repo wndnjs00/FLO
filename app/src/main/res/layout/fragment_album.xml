@@ -30,6 +30,17 @@
         app:layout_constraintTop_toTopOf="@+id/album_back_iv"
         app:layout_constraintBottom_toBottomOf="@+id/album_back_iv"/>
 
+    <ImageView
+        android:id="@+id/album_like_click_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_my_like_on"
+        app:layout_constraintEnd_toStartOf="@+id/album_more_iv"
+        app:layout_constraintTop_toTopOf="@+id/album_back_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/album_back_iv"
+        android:visibility="gone"/>
+
 
     <ImageView
         android:id="@+id/album_more_iv"

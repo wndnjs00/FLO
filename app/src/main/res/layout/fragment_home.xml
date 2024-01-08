@@ -274,6 +274,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
+                        android:id="@+id/song_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LILAC"
@@ -282,6 +283,7 @@
                         android:textColor="@color/black"/>
                     
                     <TextView
+                        android:id="@+id/song_singer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"

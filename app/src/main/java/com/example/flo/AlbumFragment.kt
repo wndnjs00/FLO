@@ -19,11 +19,39 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater,container,false)
 
+
         //albumBackIv버튼 클릭했을때
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()
         }
 
+
+        //좋아요 눌렀을때
+        binding.albumLikeIv.setOnClickListener {
+            favorateBtn(false)
+        }
+
+        //좋아요 해제했을때
+        binding.albumLikeClickIv.setOnClickListener {
+            favorateBtn(true)
+        }
+
         return binding.root
     }
+
+
+
+    //좋아요 눌렀을때 바뀌는 함수
+   fun favorateBtn(favorate : Boolean) {
+       if (favorate){
+           binding.albumLikeIv.visibility = View.VISIBLE
+           binding.albumLikeClickIv.visibility = View.GONE
+       }
+        else{
+            binding.albumLikeIv.visibility = View.GONE
+           binding.albumLikeClickIv.visibility = View.VISIBLE
+       }
+   }
+
+
 }
