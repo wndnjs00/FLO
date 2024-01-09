@@ -19,5 +19,34 @@ class SongFragment : Fragment(){
         binding = FragmentSongBinding.inflate(inflater,container,false)
 
         return binding.root
+
+
+//        //취향MIX 버튼 눌렀을때 이미지 바뀌게g
+//        binding.songMixoffTg.setOnClickListener {
+//            Mix(false)
+//        }
+//
+//        binding.songMixoffTg.setOnClickListener {
+//            Mix(true)
+//        }
+
+
+
     }
+
+
+
+//    //취향MIX 버튼 눌렀을때 바뀌는 함수
+//    fun Mix(go: Boolean){
+//        if (go){
+//            binding.songMixoffTg.visibility = View.VISIBLE
+//            binding.songMixonTg.visibility = View.GONE
+//        }
+//        else{
+//            binding.songMixoffTg.visibility = View.GONE
+//            binding.songMixonTg.visibility = View.VISIBLE
+//        }
+//    }
+
+
 }
