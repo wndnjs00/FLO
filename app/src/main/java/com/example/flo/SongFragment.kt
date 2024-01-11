@@ -18,6 +18,20 @@ class SongFragment : Fragment(){
     ): View? {
         binding = FragmentSongBinding.inflate(inflater,container,false)
 
+
+        //songMixoffTg버튼 클릭했을때 이미지변경
+        binding.songMixoffTg.setOnClickListener {
+            binding.songMixoffTg.visibility = View.GONE
+            binding.songMixonTg.visibility = View.VISIBLE
+        }
+
+        binding.songMixonTg.setOnClickListener {
+            binding.songMixoffTg.visibility = View.VISIBLE
+            binding.songMixonTg.visibility = View.GONE
+        }
+
+
+
         return binding.root
 
 

@@ -13,6 +13,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 class AlbumFragment : Fragment() {
     lateinit var binding : FragmentAlbumBinding
 
+
+    //fragment_album TabLayout에 들어갈 텍스트
     private val information = arrayListOf("수록곡", "상세정보","영상")
 
     override fun onCreateView(
@@ -40,6 +42,8 @@ class AlbumFragment : Fragment() {
         }
 
 
+
+
         //view와 연결해주는 작업
         val albumAdapter = AlbumVPAdapter(this)
         binding.albumContentVp.adapter = albumAdapter
@@ -51,7 +55,6 @@ class AlbumFragment : Fragment() {
             tab, position ->
             tab.text = information[position]
         }.attach()
-
 
         return binding.root
     }

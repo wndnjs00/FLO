@@ -55,6 +55,10 @@ class HomeFragment : Fragment() {
         binding.homePannelBackgroundVp.adapter = bigbannerAdpter
         binding.homePannelBackgroundVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
+        //viewpager와 indicator연결
+        binding.homePannelIndicator.setViewPager(binding.homePannelBackgroundVp)
+        binding.homeBannerIndicator.setViewPager(binding.homeBannerVp)
+
 
         return binding.root
 
