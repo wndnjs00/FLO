@@ -5,4 +5,5 @@ package com.example.flo
 data class Song(
     val title : String = "",    //노래제목
     val singer : String = ""    //가수
+
 )

@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         initBottomNavigation()
 
+
         //개발하면서 스스로 로그확인하기 위해
         Log.d("Song",song.title + song.singer)
     }
