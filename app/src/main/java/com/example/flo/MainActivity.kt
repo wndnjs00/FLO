@@ -16,19 +16,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
         // 하단 플레이어 클릭하면, SongActivity에 있는 제목,가수의 값이 같게 바뀌게
         // (하단플레이어 -> SongActivity로 데이터값 전달되게)
 
-        // text값들을 string값으로 바꿔서 가져오기
-        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
+        // text값들을 string값으로 바꿔서 가져오기 (title,singer,second,playTime,isPlaying에 해당하는 값들)
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),0,60,false)
+
 
         //binding을 사용해서 id값 가져오기
         //mainPlayerCl눌렀을때 SongActivity로 이동
         binding.mainPlayerCl.setOnClickListener {
             //startActivity(Intent(this, SongActivity::class.java))
             val intent = Intent(this, SongActivity::class.java)
+
+            //putExtra를 사용해서 데이터값들을 보내줌
             intent.putExtra("title", song.title)    //putExtra를 사용해서 title(제목)데이터를 보내줌
             intent.putExtra("singer", song.singer)  //putExtra를 사용해서 singer(가수)데이터를 보내줌 (보낸데이터는 SongActivity에서 받음)
+            intent.putExtra("second", song.second)
+            intent.putExtra("playTime", song.playTime)
+            intent.putExtra("isPlaying", song.isPlaying)
+
             startActivity(intent)
         }
 
