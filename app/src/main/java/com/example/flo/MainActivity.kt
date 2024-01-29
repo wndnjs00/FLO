@@ -12,6 +12,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // splash화면에서 원래의 테마로 돌려줌
+        setTheme(R.style.Theme_FLO)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -20,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         // 하단 플레이어 클릭하면, SongActivity에 있는 제목,가수의 값이 같게 바뀌게
         // (하단플레이어 -> SongActivity로 데이터값 전달되게)
 
-        // text값들을 string값으로 바꿔서 가져오기 (title,singer,second,playTime,isPlaying에 해당하는 값들)
-        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),0,60,false)
+        // text값들을 string값으로 바꿔서 가져오기 (title,singer,second,playTime,isPlaying,music 에 해당하는 값들)
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),0,60,false,"music_lilac")
 
 
         //binding을 사용해서 id값 가져오기
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("second", song.second)
             intent.putExtra("playTime", song.playTime)
             intent.putExtra("isPlaying", song.isPlaying)
+            intent.putExtra("music", song.music)
 
             startActivity(intent)
         }
@@ -47,6 +51,9 @@ class MainActivity : AppCompatActivity() {
         Log.d("Song",song.title + song.singer)
     }
 
+
+
+    // 하단 네비게이션바
     private fun initBottomNavigation(){
 
         supportFragmentManager.beginTransaction()

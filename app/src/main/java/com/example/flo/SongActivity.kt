@@ -1,21 +1,26 @@
 package com.example.flo
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ContentInfoCompat.Flags
 import com.example.flo.databinding.ActivitySongBinding
+import com.google.gson.Gson
 
 class SongActivity : AppCompatActivity(){
 
 
     lateinit var binding : ActivitySongBinding
-
     //Song 데이터클래스를 초기화하기위해 전역변수 선언
     lateinit var song: Song
-
     lateinit var timer : Timer
+    // 음악을 재생시켜줄 mediaPlayer 객체 추가
+    private var mediaPlayer : MediaPlayer? = null
+    // Gson 선언
+    private var gson : Gson = Gson()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +41,12 @@ class SongActivity : AppCompatActivity(){
 
         //songMiniplayerIv버튼 눌렀을때 재생버튼으로 이미지 바뀌게
         binding.songMiniplayerIv.setOnClickListener {
-            setPlayerStatus(false)
+            setPlayerStatus(true)
         }
 
         //songPauseIv버튼 눌렀을때 정지버튼으로 이미지 바뀌게
         binding.songPauseIv.setOnClickListener{
-            setPlayerStatus(true)
+            setPlayerStatus(false)
         }
 
 
@@ -77,11 +82,13 @@ class SongActivity : AppCompatActivity(){
     }
 
 
-    //activity파괴될때 호출되는 onDestroy함수
+    //activity파괴될때 호출되는 onDestroy함수(불필요한 리소스방지)
     override fun onDestroy() {
         super.onDestroy()
         //thread 종료
         timer.interrupt()
+        mediaPlayer?.release()  //미디어플레이어가 갖고있던 리소스 해제
+        mediaPlayer = null     //미디어플레이어 해제
     }
 
 
@@ -95,7 +102,8 @@ class SongActivity : AppCompatActivity(){
                 intent.getStringExtra("singer")!!,
                 intent.getIntExtra("second", 0),
                 intent.getIntExtra("playTime",0),
-                intent.getBooleanExtra("isPlaying", false)
+                intent.getBooleanExtra("isPlaying", false),
+                intent.getStringExtra("music")!!
             )
         }
         //SongActivity가 시작되는 시점에서 timer를 초기화해주기 위해 startTimer()를 호출
@@ -113,6 +121,11 @@ class SongActivity : AppCompatActivity(){
         binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime / 60, song.playTime % 60)
         binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
 
+        // String값인 muscic 리소스를 반환
+        val music = resources.getIdentifier(song.music,"raw", this.packageName)
+        // 리소스를 MediaPlayer한테 올림 (MediaPlayer한테 이음악 재생한다고 알림)
+        mediaPlayer = MediaPlayer.create(this,music)
+
         setPlayerStatus(song.isPlaying)
 
     }
@@ -127,12 +140,18 @@ class SongActivity : AppCompatActivity(){
         timer.isPlaying = isPlaying
 
         if(isPlaying){
-            binding.songMiniplayerIv.visibility = View.VISIBLE
-            binding.songPauseIv.visibility = View.GONE
-        }
-        else{
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
+            //음악재생
+            mediaPlayer?.start()
+        }
+        else{
+            binding.songMiniplayerIv.visibility = View.VISIBLE
+            binding.songPauseIv.visibility = View.GONE
+            //음악중지
+            if (mediaPlayer?.isPlaying == true){
+                mediaPlayer?.pause()
+            }
         }
     }
 
@@ -198,7 +217,7 @@ class SongActivity : AppCompatActivity(){
                         sleep(200)
                     }
 
-                    // isPlaying이 true일때만,50ms마다 프로그레스바를 슬라이드함 (즉, 초당 20번의 slide를 진행해서 자연스러운 슬라이딩효과줌)
+                    // isPlaying이 true일때만(노래가 현재재생중일때만),50ms마다 프로그레스바를 슬라이드함 (즉, 초당 20번의 slide를 진행해서 자연스러운 슬라이딩효과줌)
                     if(isPlaying) {
                         sleep(50)
                         mills += 50
@@ -224,9 +243,25 @@ class SongActivity : AppCompatActivity(){
             }catch (e: InterruptedException){
                 Log.d("SongActivity", "쓰레드가 죽었습니다 ${e.message}")
             }
-
         }
     }
+
+
+    // 사용자가 포커스 잃었을때 음악이 중지
+    override fun onPause() {
+        super.onPause()
+        setPlayerStatus(false)
+        // 음악이 몇초까지 재생되었는지 Song데이터 클래스에 반영
+        song.second = ((binding.songProgressSb.progress * song.playTime)/100)/1000
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+
+        val editor = sharedPreferences.edit()
+        val songJson = gson.toJson(song)
+        editor.putString("song", songJson)
+
+        editor.apply()
+    }
+
 
 
 }
