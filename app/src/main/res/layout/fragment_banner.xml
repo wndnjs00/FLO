@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:scaleType="fitXY"
-        android:src="@drawable/img_home_viewpager_exp_1"
+        android:src="@drawable/img_home_viewpager_exp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

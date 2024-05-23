@@ -31,8 +31,8 @@ class HomeFragment : Fragment() {
 
         //list안에 fragment추가
         val bannerAdapter = BannerVPAdapter(this)
-        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp_1))
-        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2_1))
+        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))
+        bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp2))
 
         //viewpager와 adapter연결
         binding.homeBannerVp.adapter = bannerAdapter
