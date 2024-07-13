@@ -88,29 +88,24 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun setRecyclerView(){
-        val albumRVAdapter = AlbumRVAdapter(albumDatas)
-        with(binding.homeTodayMusicAlbumRv){
+    private fun setRecyclerView() {
+        val albumRVAdapter = AlbumRVAdapter(albumDatas) { album ->
+            // AlbumFragment로 이동
+            (context as MainActivity).supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, AlbumFragment().apply {
+                    // bundle로 AlbumFragment에 데이터 넘겨주기
+                    arguments = Bundle().apply {
+                        val gson = Gson()
+                        val albumJson = gson.toJson(album)
+                        putString("album", albumJson)
+                    }
+                }).commitAllowingStateLoss()
+        }
+
+        with(binding.homeTodayMusicAlbumRv) {
             adapter = albumRVAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-
-        // 어뎁터 클릭리스너
-        albumRVAdapter.setMyItemClickLister(object : AlbumRVAdapter.MyItemClickListener{
-            override fun onItemClick(album: Album) {
-            // AlbumFragment로 이동
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm,AlbumFragment().apply {
-                // bundle로 AlbumFragment에 데이터 넘겨주기
-                arguments = Bundle().apply {
-                    val gson = Gson()
-                    val albumJson = gson.toJson(album)
-                    putString("album",albumJson)
-                }
-            })
-            .commitAllowingStateLoss()
-            }
-        })
     }
 
 

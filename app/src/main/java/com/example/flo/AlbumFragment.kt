@@ -15,7 +15,6 @@ import com.google.gson.Gson
 class AlbumFragment : Fragment() {
     private val binding get() = _binding!!
     private var _binding: FragmentAlbumBinding? = null
-    //fragment_album TabLayout에 들어갈 텍스트
     private val information = arrayListOf("수록곡", "상세정보","영상")
     private val gson = Gson()
 
@@ -29,22 +28,17 @@ class AlbumFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         clickListener()
         setViewPager()
+        getAlbumData()
     }
-
 
 
     private fun clickListener() {
         with(binding){
-            val albumJson = arguments?.getString("album")
-            val album = gson.fromJson(albumJson, Album::class.java)
-            setinit(album)
-
             //albumBackIv버튼 클릭했을때
             albumBackIv.setOnClickListener{(context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm,HomeFragment())
@@ -58,6 +52,19 @@ class AlbumFragment : Fragment() {
         }
     }
 
+    private fun getAlbumData(){
+        val albumJson = arguments?.getString("album")
+        val album = gson.fromJson(albumJson, Album::class.java)
+        setinit(album)
+    }
+
+    private fun setinit(album: Album){
+        with(binding){
+            albumAlbumIv.setImageResource(album.coverImg!!)
+            albumMusicTitleTv.text = album.title.toString()
+            albumSingerNameTv.text = album.singer.toString()
+        }
+    }
 
     private fun setViewPager() {
         //view와 연결해주는 작업
@@ -73,7 +80,6 @@ class AlbumFragment : Fragment() {
     }
 
 
-
     //좋아요 눌렀을때 바뀌는 함수
     private fun favorateBtn(favorate : Boolean) {
         if (favorate){
@@ -83,14 +89,6 @@ class AlbumFragment : Fragment() {
         else{
             binding.albumLikeIv.visibility = View.GONE
             binding.albumLikeClickIv.visibility = View.VISIBLE
-        }
-    }
-
-    private fun setinit(album: Album){
-        with(binding){
-            albumAlbumIv.setImageResource(album.coverImg!!)
-            albumMusicTitleTv.text = album.title.toString()
-            albumSingerNameTv.text = album.singer.toString()
         }
     }
 
