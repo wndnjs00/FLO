@@ -3,32 +3,38 @@ package com.example.flo
 import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flo.databinding.ItemAlbumBinding
 
 class AlbumRVAdapter(
-    private val albumList : ArrayList<Album>,
     private val itemClickListener : (Album) -> Unit
-) : RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
+) : ListAdapter<Album, AlbumRVAdapter.ViewHolder>(AlbumDiffUtil) {
 
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlbumRVAdapter.ViewHolder {
-        val binding: ItemAlbumBinding = ItemAlbumBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+    override fun onCreateViewHolder(
+        viewGroup: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val binding: ItemAlbumBinding =
+            ItemAlbumBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AlbumRVAdapter.ViewHolder, position: Int) {
-        holder.bind(albumList[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val album = getItem(position)
+        holder.bind(album)
 
         holder.itemView.setOnClickListener {
-            itemClickListener(albumList[position])
+            itemClickListener(album)
         }
     }
 
-    override fun getItemCount(): Int = albumList.size
 
-
-    inner class ViewHolder(val binding : ItemAlbumBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(
+        private var binding : ItemAlbumBinding
+    ) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(album: Album){
             binding.itemAlbumTitleTv.text = album.title
@@ -37,4 +43,14 @@ class AlbumRVAdapter(
         }
     }
 
+
+     object AlbumDiffUtil : DiffUtil.ItemCallback<Album>() {
+        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
+            return oldItem == newItem
+        }
+    }
 }

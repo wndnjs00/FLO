@@ -89,7 +89,7 @@ class HomeFragment : Fragment() {
 
 
     private fun setRecyclerView() {
-        val albumRVAdapter = AlbumRVAdapter(albumDatas) { album ->
+        val albumRVAdapter = AlbumRVAdapter { album ->
             // AlbumFragment로 이동
             (context as MainActivity).supportFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, AlbumFragment().apply {
@@ -106,6 +106,9 @@ class HomeFragment : Fragment() {
             adapter = albumRVAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
+
+        // 어댑터 갱신
+        albumRVAdapter.submitList(albumDatas)
     }
 
 
