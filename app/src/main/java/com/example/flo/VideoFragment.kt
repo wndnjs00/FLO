@@ -5,19 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.flo.databinding.FragmentLockerBinding
 import com.example.flo.databinding.FragmentVideoBinding
 
 class VideoFragment : Fragment(){
 
-    lateinit var binding : FragmentVideoBinding
+    private val binding get() = _binding!!
+    private var _binding: FragmentVideoBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentVideoBinding.inflate(inflater, container, false)
-
+        _binding = FragmentVideoBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
