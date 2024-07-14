@@ -1,14 +1,15 @@
-package com.example.flo
+package com.example.flo.presentation.fragment
 
-import android.os.Binder
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.flo.Album
+import com.example.flo.MainActivity
+import com.example.flo.R
 import com.example.flo.databinding.FragmentAlbumBinding
-import com.example.flo.databinding.FragmentHomeBinding
+import com.example.flo.presentation.adapter.AlbumVPAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 
@@ -41,7 +42,7 @@ class AlbumFragment : Fragment() {
         with(binding){
             //albumBackIv버튼 클릭했을때
             albumBackIv.setOnClickListener{(context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm,HomeFragment())
+                .replace(R.id.main_frm, HomeFragment())
                 .commitAllowingStateLoss()}
 
             //좋아요 눌렀을때

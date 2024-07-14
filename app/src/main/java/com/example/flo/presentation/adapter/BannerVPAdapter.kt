@@ -1,4 +1,4 @@
-package com.example.flo
+package com.example.flo.presentation.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -14,9 +14,8 @@ class BannerVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
 
     //데이터 몇개 전달할건지
     //fragmentlist에 담긴 개수만큼 전달
-    override fun getItemCount(): Int {
-        return fragmentlist.size
-    }
+    override fun getItemCount(): Int = fragmentlist.size
+
 
     //framgmentlist안에 있는 item들을 생성해주는 함수
     override fun createFragment(position: Int): Fragment = fragmentlist[position]

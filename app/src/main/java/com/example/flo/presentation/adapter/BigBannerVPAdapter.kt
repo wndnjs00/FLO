@@ -1,4 +1,4 @@
-package com.example.flo
+package com.example.flo.presentation.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

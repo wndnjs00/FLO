@@ -1,7 +1,9 @@
-package com.example.flo
+package com.example.flo.presentation.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.flo.presentation.fragment.SaveSongFragment
+import com.example.flo.presentation.fragment.SongFileFragment
 
 class LockerVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
 

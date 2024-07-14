@@ -1,4 +1,4 @@
-package com.example.flo
+package com.example.flo.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.flo.Album
+import com.example.flo.MainActivity
+import com.example.flo.R
 import com.example.flo.databinding.FragmentHomeBinding
+import com.example.flo.presentation.adapter.AlbumRVAdapter
+import com.example.flo.presentation.adapter.BannerVPAdapter
+import com.example.flo.presentation.adapter.BigBannerVPAdapter
 import com.google.gson.Gson
 
 class HomeFragment : Fragment() {
@@ -78,12 +84,12 @@ class HomeFragment : Fragment() {
     private fun addDataList(){
         // 데이터리스트 생성 더미데이터 (실제앱에서는 서버에서 받아온 데이터사용)
         albumDatas.apply {
-            add(Album("Butter","방탄소년단 (BTS)",R.drawable.img_album_exp2))
-            add(Album("라일락","아이유",R.drawable.img_album_exp3))
-            add(Album("넥스트레벨","에스파",R.drawable.img_album_exp4))
-            add(Album("Boy with Luv","방탄소년단 (BTS)",R.drawable.img_album_exp5))
-            add(Album("붐붐","모모랜드",R.drawable.img_album_exp6))
-            add(Album("Weekend","태연",R.drawable.img_album_exp2))
+            add(Album("Butter","방탄소년단 (BTS)", R.drawable.img_album_exp2))
+            add(Album("라일락","아이유", R.drawable.img_album_exp3))
+            add(Album("넥스트레벨","에스파", R.drawable.img_album_exp4))
+            add(Album("Boy with Luv","방탄소년단 (BTS)", R.drawable.img_album_exp5))
+            add(Album("붐붐","모모랜드", R.drawable.img_album_exp6))
+            add(Album("Weekend","태연", R.drawable.img_album_exp2))
         }
     }
 

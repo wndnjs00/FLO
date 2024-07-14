@@ -1,11 +1,11 @@
-package com.example.flo
+package com.example.flo.presentation.adapter
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.flo.Album
 import com.example.flo.databinding.ItemAlbumBinding
 
 class AlbumRVAdapter(
