@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.flo.Album
 import com.example.flo.MainActivity
 import com.example.flo.R
+import com.example.flo.SongDataBase
 import com.example.flo.databinding.FragmentHomeBinding
 import com.example.flo.presentation.adapter.AlbumRVAdapter
 import com.example.flo.presentation.adapter.BannerVPAdapter
@@ -22,6 +23,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
     private var albumDatas = ArrayList<Album>()
+    private lateinit var songDB : SongDataBase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,14 +85,9 @@ class HomeFragment : Fragment() {
 
     private fun addDataList(){
         // 데이터리스트 생성 더미데이터 (실제앱에서는 서버에서 받아온 데이터사용)
-        albumDatas.apply {
-            add(Album("Butter","방탄소년단 (BTS)", R.drawable.img_album_exp2))
-            add(Album("라일락","아이유", R.drawable.img_album_exp3))
-            add(Album("넥스트레벨","에스파", R.drawable.img_album_exp4))
-            add(Album("Boy with Luv","방탄소년단 (BTS)", R.drawable.img_album_exp5))
-            add(Album("붐붐","모모랜드", R.drawable.img_album_exp6))
-            add(Album("Weekend","태연", R.drawable.img_album_exp2))
-        }
+        // 앨범 데이터에 데이터를 추가
+        songDB = SongDataBase.getInstance(requireContext())!!
+        albumDatas.addAll(songDB.albumDao().getAlbums())
     }
 
 

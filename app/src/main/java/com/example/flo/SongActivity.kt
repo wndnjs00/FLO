@@ -12,7 +12,6 @@ import com.google.gson.Gson
 
 class SongActivity : AppCompatActivity(){
 
-
     lateinit var binding : ActivitySongBinding
     lateinit var timer : Timer
     // 음악을 재생시켜줄 mediaPlayer 객체 추가
@@ -75,16 +74,10 @@ class SongActivity : AppCompatActivity(){
             moveSong(-1)
         }
 
-//        //songLikeIv버튼 눌렀을때 좋아요 눌리게
-//        binding.songLikeIv.setOnClickListener {
-//            favorateBtn(false)
-//        }
-//
-//        //좋아요 해제되게
-//        binding.songLikeClickIv.setOnClickListener {
-//            favorateBtn(true)
-//        }
-//
+        binding.songLikeIv.setOnClickListener {
+            setLike(songs[nowPos].isLike)
+        }
+
 //        //금지버튼 눌렀을때 눌리게
 //        binding.songUnlikeIv.setOnClickListener {
 //            noAction(false)
@@ -161,6 +154,13 @@ class SongActivity : AppCompatActivity(){
         }else{
             Log.d("SongActivity", "Music resource not found: ${song.music}")
         }
+
+        // 좋아요버튼 눌렀을시
+        if(song.isLike){
+            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+        }else{
+            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+        }
     }
 
 
@@ -183,31 +183,6 @@ class SongActivity : AppCompatActivity(){
             if (mediaPlayer?.isPlaying == true){
                 mediaPlayer?.pause()
             }
-        }
-    }
-
-
-    //좋아요 눌렀을때 바뀌는 함수
-    fun favorateBtn(isPlaying: Boolean){
-        if (isPlaying){
-            binding.songLikeIv.visibility = View.VISIBLE
-            binding.songLikeClickIv.visibility = View.GONE
-        }
-        else{
-            binding.songLikeIv.visibility = View.GONE
-            binding.songLikeClickIv.visibility = View.VISIBLE
-        }
-    }
-
-    //금지버튼 눌렀을때 바뀌는 함수
-    fun noAction(go: Boolean){
-        if (go){
-            binding.songUnlikeIv.visibility = View.VISIBLE
-            binding.songUnlikeClickIv.visibility = View.GONE
-        }
-        else{
-            binding.songUnlikeIv.visibility = View.GONE
-            binding.songUnlikeClickIv.visibility = View.VISIBLE
         }
     }
 
@@ -294,5 +269,16 @@ class SongActivity : AppCompatActivity(){
     }
 
 
+    //좋아요 눌렀을때
+    private fun setLike(isLike: Boolean){
+        songs[nowPos].isLike = !isLike
+        songDB.songDao().updateIsLikeById(!isLike, songs[nowPos].id)
+
+        if(!isLike){
+            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_on)
+        }else{
+            binding.songLikeIv.setImageResource(R.drawable.ic_my_like_off)
+        }
+    }
 
 }
