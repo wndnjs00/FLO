@@ -58,7 +58,11 @@ class LockerFragment : Fragment() {
         }
     }
 
-    // sharedpreference에 jwt값이 저장되어있는지 확인후, 로그인 로그아웃 버튼 변경하기
+    // sharedpreference에 jwt// sharedpreference에 jwt값이 저장되어있는지 확인후, 로그인 로그아웃 버튼 변경하기
+    //    private fun getJwt(): Int {
+    //        val sharedpreference = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+    //        return sharedpreference?.getInt("jwt", 0) ?: 0
+    //    }값이 저장되어있는지 확인후, 로그인 로그아웃 버튼 변경하기
     private fun getJwt(): Int {
         val sharedpreference = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         return sharedpreference?.getInt("jwt", 0) ?: 0
